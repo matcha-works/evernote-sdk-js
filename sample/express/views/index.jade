@@ -7,12 +7,11 @@ block content
     a(href='http://expressjs.com/') Express
     |  framework to demonstrate the use of OAuth to authenticate to the Evernote web service.
   hr
-  - if(session.error)
-    h2 Error
-    p
-      = session.error
   h2 Authentication
-  - if(session.oauthAccessToken)
+  - if(messages)
+      each message in messages
+        p= message
+  - if(session.oauth_access_token)
     a(href='/clear') Click here
     |  to 
     | start over
@@ -27,27 +26,30 @@ block content
     ul
       - for (var i = 0; i < session.notebooks.length; ++i)
         li= session.notebooks[i].name
+    a(href='/create') Click here
+    |  to
+    | create a new note in your notebooks. 
     hr
   h2 Current status
   ul
     li
       b NoteStore URL:  
-      = session.edamNoteStoreUrl
+      = session.edam_noteStoreUrl
     li
       b Web API URL prefix: 
-      = session.edamNoteStoreUrl
+      = session.edam_noteStoreUrl
   h3 Token Credentials:
   ul
     li
       b token:  
-      = session.oauthAccessToken
+      = session.oauth_access_token
     li
       b secret:  
-      = session.oauthAccessTokenSecret
+      = session.oauth_access_token_secret
     li
       b User ID:  
-      = session.edamUserId
+      = session.edam_userId
     li
       b Expires:  
-      = session.edamExpires
+      = session.edam_expires
     

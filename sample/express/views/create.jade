@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1 Evernote Node.js Express Demo
+  p
+    | This application uses the 
+    a(href='http://expressjs.com/') Express
+    |  framework to demonstrate the use of OAuth to authenticate to the Evernote web service.
+  hr
+  h2 Create a new note.
+  - if(session.notebooks)
+    form(action="/save", method="post", enctype="multipart/form-data")
+      | Select your notebook: 
+      select(name="notebookGuid", style="width:300px")
+        - for (var i = 0; i < session.notebooks.length; ++i)
+          option(value= session.notebooks[i].guid) #{session.notebooks[i].name}
+      br
+      | Title: 
+      br
+      input(type="text", name="title", size="30")
+      br
+      | Content: 
+      br
+      textarea(name="content", cols="50", rows="20")
+      br
+      | Select an image:
+      br
+      input(type="file", name="upfile",size="30")
+      br
+      br  
+      input(type="submit", value="Save")
+

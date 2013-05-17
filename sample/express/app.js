@@ -22,6 +22,12 @@ app.configure(function(){
     next();
   });
 
+  app.use(function(req, res, next){
+    res.locals.messages = req.session.messages;
+    req.session.messages = null;
+    next();
+  });
+
   app.use(app.router);
   app.use(require('less-middleware')({src: __dirname + '/public'}));
   app.use(express.static(path.join(__dirname, 'public')));
@@ -36,6 +42,9 @@ app.get('/', routes.index);
 app.get('/oauth', routes.oauth);
 app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
+app.get('/create', routes.create);
+app.get('/created', routes.created);
+app.post('/save', routes.save);
 
 // Run
 http.createServer(app).listen(app.get('port'), function(){
